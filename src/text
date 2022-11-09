@@ -1,0 +1,6 @@
+웹 브라우저에서 서버에 해당 주소로 접속 요청을 하게되면 컨트롤러들 중에서 주소가 일치하는 데이터를 찾아 메서드를 매칭시킴.
+BoardController /board/openBoardList.do 경로.
+BoardController -> BoardService 인터페이스
+(BoardService -> BoardMapper -> sql-board.xml)
+
+BoardService -> ORM(mapper) mybatis 인터페이스 -> DB  -> 역순
