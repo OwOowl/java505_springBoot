@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -69,9 +70,11 @@ public class BoardController {
     }
 
 //    게시글 등록
+//    클라이언트에서 업로드된 파일 데이터를 받기 위해서 매개변수로 MultipartHttpServletRequest를 추가함
     @RequestMapping("/board/insertBoard")
-    public String insertBoard(BoardDto board) throws Exception {
-        boardService.insertBoard(board);
+    public String insertBoard(BoardDto board, MultipartHttpServletRequest multipart) throws Exception {
+//        업로드된 파일 데이터를 서비스 영역레서 처리하기 위해서 매개변수를 추가
+        boardService.insertBoard(board, multipart);
 
         return "redirect:/board/openBoardList";
     }
