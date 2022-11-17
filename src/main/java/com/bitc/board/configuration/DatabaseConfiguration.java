@@ -14,18 +14,23 @@ import org.springframework.context.annotation.PropertySource;
 
 import javax.sql.DataSource;
 
+//  @Configuration : 해당 파일이 스프링 프로젝트 설정 파일임을 나타내는 어노테이션
 @Configuration
+//  @PropertySource : 지정한 파일에서 설정 내용을 가져오는 어노테이션
+//  classpath : 스프링 프로젝트 resource 폴더를 의미함
 @PropertySource("classpath:/application.properties")
 public class DatabaseConfiguration {
     @Autowired
     private ApplicationContext applicationContext;
 
+//    ConfigurationProperties : prefix로 지정한 설정의 내용을 가져옴
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource.hikari")
     public HikariConfig hikariConfig() {
         return new HikariConfig();
     }
 
+//    실제 데이터 베이스 연결
     @Bean
     public DataSource dataSource() throws Exception {
         DataSource dataSource = new HikariDataSource(hikariConfig());
@@ -48,6 +53,7 @@ public class DatabaseConfiguration {
         return new SqlSessionTemplate(sqlSessionFactory);
     }
 
+//    mybatis 설정
     @Bean
     @ConfigurationProperties(prefix="mybatis.configuration")
     public org.apache.ibatis.session.Configuration mybatisConfig() {
